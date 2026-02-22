@@ -553,7 +553,28 @@ function App() {
                         </div>
                       </div>
 
-                      <button onClick={executeTrade} disabled={loading || !results} className="mt-4 w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg transition-all">
+                      {validation && (
+                        <div className={`p-4 rounded-xl border text-sm font-medium ${validation.approved ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
+                          <div className="flex items-center mb-1">
+                            <span className="mr-2">{validation.approved ? '✅' : '❌'}</span>
+                            <span>{validation.summary}</span>
+                          </div>
+                          {!validation.approved && (
+                            <ul className="mt-2 space-y-1 text-xs list-disc list-inside opacity-80">
+                              {validation.failed_rules.map((rule, idx) => (
+                                <li key={idx}>{rule.msg}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+
+                      <button
+                        onClick={executeTrade}
+                        disabled={loading || !results || !validation?.approved}
+                        className={`mt-4 w-full py-3 px-4 text-white font-bold rounded-xl shadow-lg transition-all ${!validation?.approved ? 'bg-slate-700 cursor-not-allowed grayscale' : 'bg-blue-600 hover:bg-blue-500'
+                          }`}
+                      >
                         Auto-Execute Now
                       </button>
                     </div>
