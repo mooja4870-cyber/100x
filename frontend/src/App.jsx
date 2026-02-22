@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -32,6 +32,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [scannerActive, setScannerActive] = useState(false);
+  const [validation, setValidation] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [backtestResults, setBacktestResults] = useState(null);
 
   // Poll for signals
   useEffect(() => {

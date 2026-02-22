@@ -17,6 +17,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"message": "100x Crypto Futures Auto-Trading API is running. Go to /docs for API documentation."}
+
 app.include_router(router, prefix="/api")
 
 if __name__ == "__main__":
